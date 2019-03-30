@@ -77,10 +77,20 @@ object B {
 
 case class BOOL(get: Boolean) extends Value
 
+case class L(get: Seq[Value]) extends Value
+
+case class M(get: Map[String, Value]) extends Value
+
 case class N(get: String) extends OrderedValue
 
 object N {
   def apply[A : Numeric](a: A): N = N(a.toString)
+}
+
+case class NS(get: Set[String]) extends Value
+
+object NS {
+  def apply[A : Numeric](set: Set[A]): NS = NS(set.map(_.toString))
 }
 
 case class S(get: String) extends SequenceValue

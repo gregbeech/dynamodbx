@@ -2,7 +2,7 @@ package dynamodbx
 
 import org.scalatest.{MustMatchers, WordSpec}
 
-class QuerySpec extends WordSpec with MustMatchers {
+class ConditionSpec extends WordSpec with MustMatchers {
 
   "stuff" in {
     PK("foo.bar").eql("stuff") and SK("bar[0]").eql(true) mustEqual KeyCondition(

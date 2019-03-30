@@ -58,9 +58,11 @@ lazy val core = (project in file("core")).
     name := "dynamodbx-core",
     libraryDependencies ++= Seq(
       "com.chuusai" %% "shapeless" % "2.3.3",
+      "io.spray" %%  "spray-json" % "1.3.5",
       "org.parboiled" %% "parboiled" % "2.1.5",
       "org.typelevel" %% "cats-core" % "1.6.0",
-      "org.scalatest" %% "scalatest" % "3.0.5" % Test
+      "org.scalatest" %% "scalatest" % "3.0.5" % Test,
+      "org.typelevel" %% "cats-testkit" % "1.1.0" % Test
     )
   )
 

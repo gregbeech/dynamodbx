@@ -1,8 +1,5 @@
 package dynamodbx
 
-import cats._
-//import cats.kernel.Semigroup
-
 sealed trait Operation
 sealed trait SKOperation extends Operation
 sealed trait PKOperation extends Operation
@@ -31,27 +28,7 @@ case class SKCondition(path: Path, operation: SKOperation) extends AttrCompariso
 case class KeyCondition(pk: PKCondition, sk: SKCondition) extends Condition
 
 sealed trait Filter
-case object NoFilter extends Filter
 case class And(left: Filter, right: Filter) extends Filter
 case class Or(left: Filter, right: Filter) extends Filter
 case class Not(condition: Filter) extends Filter
 case class AttrFilter(path: Path, operation: Operation) extends Filter with AttrComparison
-
-object Filter {
-  def groupInstanceForFilter: Group[Filter] = new Group[Filter] {
-    override def empty: Filter = NoFilter
-
-    override def combine(x: Filter, y: Filter): Filter = x match {
-      case NoFilter => y
-      case _ => y match {
-        case NoFilter => x
-        case _ => And(x, y)
-      }
-    }
-
-    override def inverse(a: Filter): Filter = a match {
-      case Not(filter) => filter
-      case _ => Not(a)
-    }
-  }
-}
