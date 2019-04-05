@@ -1,6 +1,6 @@
 package dynamodbx
 
-import dynamodbx.json.spray.QueryJson
+import dynamodbx.json.QueryJson
 
 sealed trait Order {
   val isForward: Boolean

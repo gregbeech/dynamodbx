@@ -1,13 +1,14 @@
 package dynamodbx.awssdk.v2
 
 import dynamodbx._
+import dynamodbx.common.Builder
 import software.amazon.awssdk.core.SdkBytes
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue
 
 import scala.collection.JavaConverters._
 
-object AttributeValueBuilder {
-  def build(value: Value): AttributeValue = build(value, 0)
+object AttributeValueBuilder extends Builder[Value, AttributeValue] {
+  def apply(value: Value): AttributeValue = build(value, 0)
 
   private def build(value: Value, depth: Int): AttributeValue = {
     if (depth > 32) throw new IllegalArgumentException("Values cannot be more than 32 levels deep")

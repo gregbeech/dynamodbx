@@ -1,10 +1,10 @@
-package dynamodbx.json.spray
+package dynamodbx.json
 
 import dynamodbx.common.{Expression, ExpressionContext}
 import dynamodbx._
 import spray.json.{JsBoolean, JsNumber, JsObject, JsString, JsValue}
 
-object QueryJson {
+object QueryJson extends JsonBuilder[Query] {
   def apply(query: Query): JsObject = {
     implicit val context: ExpressionContext = new ExpressionContext()
 

@@ -5,6 +5,6 @@ import software.amazon.awssdk.services.dynamodb.model.QueryRequest
 
 object syntax {
   implicit class RichQuery(private val query: Query) extends AnyVal {
-    def toRequest: QueryRequest = QueryRequestBuilder.build(query)
+    def toRequest: QueryRequest = QueryRequestBuilder(query)
   }
 }

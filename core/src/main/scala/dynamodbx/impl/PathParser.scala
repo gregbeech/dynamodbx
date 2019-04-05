@@ -4,9 +4,11 @@ import dynamodbx._
 import org.parboiled2.{CharPredicate, Parser, ParserInput}
 
 trait BasicRules { this: Parser =>
-  def wsp = rule { oneOrMore(anyOf(" \t\r\n")) }
-  def owsp = rule { zeroOrMore(anyOf(" \t\r\n")) }
+  def wsp = rule { oneOrMore(WspChar) }
+  def owsp = rule { zeroOrMore(WspChar) }
   def kw(s: String) = rule { ignoreCase(s) }
+
+  private val WspChar = CharPredicate(" \t\r\n")
 }
 
 trait PathRules extends BasicRules { this: Parser =>

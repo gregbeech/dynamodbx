@@ -1,14 +1,14 @@
 package dynamodbx.awssdk.v2
 
-import dynamodbx.common.{Expression, ExpressionContext}
+import dynamodbx.common.{Builder, Expression, ExpressionContext}
 import dynamodbx._
 import software.amazon.awssdk.services.dynamodb.model.QueryRequest
 import software.amazon.awssdk.services.dynamodb.model.Select._
 
 import scala.collection.JavaConverters._
 
-object QueryRequestBuilder {
-  def build(query: Query): QueryRequest = {
+object QueryRequestBuilder extends Builder[Query, QueryRequest] {
+  def apply(query: Query): QueryRequest = {
     implicit val context: ExpressionContext = new ExpressionContext()
 
     val request = mkRequest(query.source)
@@ -31,7 +31,7 @@ object QueryRequestBuilder {
     query.limit.foreach(request.limit(_))
 
     request.expressionAttributeNames(context.nameMap.asJava)
-    request.expressionAttributeValues(context.valueMap.mapValues(AttributeValueBuilder.build).asJava)
+    request.expressionAttributeValues(context.valueMap.mapValues(AttributeValueBuilder).asJava)
     request.build()
   }
 

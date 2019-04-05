@@ -1,9 +1,9 @@
-package dynamodbx.json.spray
+package dynamodbx.json
 
 import dynamodbx.{B, BOOL, L, M, N, NS, S, SS, Value}
 import spray.json.{JsArray, JsBoolean, JsNumber, JsObject, JsString}
 
-object AttributeJson {
+object AttributeJson extends JsonBuilder[Value] {
   def apply(value: Value): JsObject = format(value, 0)
 
   private def format(value: Value, depth: Int): JsObject = {
