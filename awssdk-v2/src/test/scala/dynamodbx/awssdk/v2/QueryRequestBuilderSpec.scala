@@ -28,7 +28,7 @@ class QueryRequestBuilderSpec extends WordSpec with MustMatchers {
 
     println(query.toString)
 
-    val request = query.toRequest
+    val request = query.asRequest
     request.tableName mustEqual "Widgets"
     request.indexName mustEqual "GSI1"
     request.keyConditionExpression mustEqual "(#0 = :0) and (#1 = :1)"

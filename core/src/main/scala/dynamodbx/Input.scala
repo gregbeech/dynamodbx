@@ -35,7 +35,7 @@ object Input extends LowPriorityInputImplicits {
 }
 
 trait LowPriorityInputImplicits {
-  implicit val instantInput: Input[Instant] = a => S((BigDecimal(a.toEpochMilli) / 1000).toString)
+  implicit val instantInput: Input[Instant] = a => S(a.getEpochSecond.toString)
   implicit val localDateInput: Input[LocalDate] = a => S(a.toString)
   implicit val localDateTimeInput: Input[LocalDateTime] = a => S(a.toInstant(ZoneOffset.UTC).toString)
   implicit val offsetDateTimeInput: Input[OffsetDateTime] = a => S(a.toInstant.toString)

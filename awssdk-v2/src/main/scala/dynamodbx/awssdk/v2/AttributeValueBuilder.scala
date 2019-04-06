@@ -10,6 +10,16 @@ import scala.collection.JavaConverters._
 object AttributeValueBuilder extends Builder[Value, AttributeValue] {
   def apply(value: Value): AttributeValue = build(value, 0)
 
+  def from(attr: AttributeValue): Value =
+    if (attr.s != null) S(attr.s)
+    else if (attr.n != null) N(attr.n)
+    else if (attr.bool != null) BOOL(attr.bool)
+    else if (attr.ss.size > 0) SS(attr.ss.asScala.toSet)
+    else if (attr.ns.size > 0) NS(attr.ns.asScala.toSet)
+    // TODO: remaining cases
+    else if (attr.nul) throw new IllegalArgumentException("Attribute value is NULL")
+    else throw new UnsupportedOperationException("Type of attribute value is not supported.")
+
   private def build(value: Value, depth: Int): AttributeValue = {
     if (depth > 32) throw new IllegalArgumentException("Values cannot be more than 32 levels deep")
     value match {
